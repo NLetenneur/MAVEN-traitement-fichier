@@ -1,9 +1,15 @@
 package entites;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -14,6 +20,10 @@ public class Ingredient {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected int id;
 	protected String libelle;
+	@ManyToMany
+	@JoinTable(name="produit_ingredient", joinColumns = { @JoinColumn(name = "id_produit") }, 
+    inverseJoinColumns = { @JoinColumn(name = "id_ingredient") } )
+	private Set<Produit> produits = new HashSet<>();
 
 	/**
 	 * Constructor
